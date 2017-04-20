@@ -1,12 +1,17 @@
 package br.com.severo.cantina.entity;
 
-import java.util.List;
-
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.ManyToMany;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
+@NamedQuery(name="TELEFONE.GETALL",query="select t from Telefone t")
+@Entity
 public class Telefone {
+	@Id @GeneratedValue
 	private int id;
 	private int ddd;
 	private int numero;
@@ -14,8 +19,8 @@ public class Telefone {
 	@Enumerated(EnumType.STRING)
 	private TipoTelefone tipo;
 	
-	@ManyToMany(mappedBy="telefones")
-	private List<Cliente> clientes;
+	@ManyToOne
+	private Cliente cliente;
 	
 	public int getId() {
 		return id;
@@ -41,12 +46,12 @@ public class Telefone {
 	public void setTipo(TipoTelefone tipo) {
 		this.tipo = tipo;
 	}
-	public List<Cliente> getClientes() {
-		return clientes;
+	public Cliente getCliente() {
+		return cliente;
 	}
-	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
-	
+
 	
 }

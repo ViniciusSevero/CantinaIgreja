@@ -1,20 +1,29 @@
 package br.com.severo.cantina.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import br.com.severo.cantina.entity.Cliente;
 import br.com.severo.cantina.repository.ClienteDAO;
+import br.com.severo.cantina.vo.ClienteVO;
 
 @Controller
+@Transactional
 public class ClienteController {
 	@Autowired 
-	@Qualifier("clienteDAOImpl")
 	private ClienteDAO dao;
 	
-	@RequestMapping("/cliente")
+	@RequestMapping("/cliente/listagem")
 	public String getForm(){
+		return "cadastro";
+	}
+	
+	@RequestMapping("/cliente/salvar")
+	public String cadastrar(Cliente cliente){
+		dao.insert(cliente);
 		return "cadastro";
 	}
 }

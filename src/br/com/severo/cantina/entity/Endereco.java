@@ -1,17 +1,21 @@
 package br.com.severo.cantina.entity;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
+@NamedQuery(name="ENDERECO.GETALL",query="select e from Endereco e")
 @Entity
 public class Endereco {
-	@Id @Column(length=8)
+	@Id @GeneratedValue
+	private int id;
+	
+	@Column(length=8)
 	private String cep;
 	private String logradouro;
 	private int numero;
@@ -24,8 +28,8 @@ public class Endereco {
 	@Enumerated(EnumType.STRING)
 	private TipoEndereco tipoEndereco;
 	
-	@ManyToMany(mappedBy="enderecos")
-	private List<Cliente> clientes;
+	@ManyToOne
+	private Cliente cliente;
 	
 	public String getCep() {
 		return cep;
@@ -75,11 +79,18 @@ public class Endereco {
 	public void setTipoEndereco(TipoEndereco tipoEndereco) {
 		this.tipoEndereco = tipoEndereco;
 	}
-	public List<Cliente> getClientes() {
-		return clientes;
+	public Cliente getCliente() {
+		return cliente;
 	}
-	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	
+
 }

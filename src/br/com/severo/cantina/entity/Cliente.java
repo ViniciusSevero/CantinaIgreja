@@ -7,8 +7,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
+@NamedQuery(name="CLIENTE.GETALL",query="select c from Cliente c")
 @Entity
 public class Cliente {
 	@Id @GeneratedValue
@@ -17,11 +19,21 @@ public class Cliente {
 	@Column(nullable=false)
 	private String nome;
 	
-	@ManyToMany(cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
 	private List<Endereco> enderecos;
 	
-	@ManyToMany(cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
 	private List<Telefone> telefones;
+	
+	public void cadastrarEndereco(Endereco endereco){
+		endereco.setCliente(this);
+		this.enderecos.add(endereco);
+	}
+	
+	public void cadastrarTelefone(Telefone telefone){
+		telefone.setCliente(this);
+		this.telefones.add(telefone);
+	}
 	
 	public long getId() {
 		return id;

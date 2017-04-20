@@ -9,38 +9,39 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import br.com.severo.cantina.entity.Cliente;
+import br.com.severo.cantina.entity.Telefone;
 
 @Repository
-public class ClienteDAO implements Crud<Integer, Cliente> {
+@Transactional
+public class TelefoneDAO implements Crud<Integer, Telefone> {
 
 	@PersistenceContext
 	private EntityManager manager;
 	
 	@Override
-	public void insert(Cliente t) {
+	public void insert(Telefone t) {
 		manager.persist(t);
 	}	
 
 	@Override
-	public void update(Cliente t) {
+	public void update(Telefone t) {
 		manager.merge(t);		
 	}
 
 	@Override
-	public void delete(Cliente t) {
+	public void delete(Telefone t) {
 		manager.remove(t);
 	}
 
 	@Override
-	public List<Cliente> listAll() {
-		TypedQuery<Cliente> q = manager.createNamedQuery("CLIENTE.GETALL",Cliente.class);
+	public List<Telefone> listAll() {
+		TypedQuery<Telefone> q = manager.createNamedQuery("Telefone.GETALL",Telefone.class);
 		return q.getResultList();
 	}
 
 	@Override
-	public Cliente find(Integer pk) {
-		return manager.find(Cliente.class, pk);
+	public Telefone find(Integer pk) {
+		return manager.find(Telefone.class, pk);
 	}
 
 }
