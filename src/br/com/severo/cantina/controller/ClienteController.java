@@ -16,7 +16,7 @@ public class ClienteController {
 	@Autowired 
 	private ClienteDAO dao;
 	
-	@RequestMapping("/cliente/listagem")
+	@RequestMapping("/cliente/cadastro")
 	public String getForm(){
 		return "cadastro";
 	}
@@ -25,5 +25,11 @@ public class ClienteController {
 	public String cadastrar(Cliente cliente){
 		dao.insert(cliente);
 		return "cadastro";
+	}
+	
+	@RequestMapping("/cliente/listagem")
+	public String getClientes(Model model){
+		model.addAttribute("lista", dao.listAll());
+		return "listagem";
 	}
 }

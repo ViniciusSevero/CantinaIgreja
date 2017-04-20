@@ -5,7 +5,9 @@
 
     <persistence-unit name="cantinaPU">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <class>org.halyph.sessiondemo.Event</class>
+        <class>br.com.severo.cantina.entity.Cliente</class>
+        <class>br.com.severo.cantina.entity.Endereco</class>
+        <class>br.com.severo.cantina.entity.Telefone</class>
 
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
