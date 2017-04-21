@@ -4,14 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 
 @NamedQuery(name="TELEFONE.GETALL",query="select t from Telefone t")
+@SequenceGenerator( name = "TELEFONE_ID", sequenceName = "CLIENTE_SEQ", allocationSize = 1 )
 @Entity
 public class Telefone {
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TELEFONE_ID")
 	private int id;
 	private int ddd;
 	private int numero;

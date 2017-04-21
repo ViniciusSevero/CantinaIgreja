@@ -1,29 +1,34 @@
 package br.com.severo.cantina.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 @NamedQuery(name="CLIENTE.GETALL",query="select c from Cliente c")
+@SequenceGenerator( name = "CLIENTE_ID", sequenceName = "CLIENTE_SEQ", allocationSize = 1 )
 @Entity
 public class Cliente {
-	@Id @GeneratedValue
-	private long id;
+	@Id
+	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "CLIENTE_ID" )
+	private int id;
 	
 	@Column(nullable=false)
 	private String nome;
 	
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
-	private List<Endereco> enderecos;
+	private List<Endereco> enderecos = new ArrayList<>();
 	
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
-	private List<Telefone> telefones;
+	private List<Telefone> telefones = new ArrayList<>();;
 	
 	public void cadastrarEndereco(Endereco endereco){
 		endereco.setCliente(this);
@@ -35,10 +40,10 @@ public class Cliente {
 		this.telefones.add(telefone);
 	}
 	
-	public long getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getNome() {

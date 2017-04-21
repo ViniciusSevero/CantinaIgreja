@@ -5,15 +5,15 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.severo.cantina.entity.Telefone;
 
 @Repository
 @Transactional
-public class TelefoneDAO implements Crud<Integer, Telefone> {
+public class TelefoneDAO implements ITelefoneDAO {
 
 	@PersistenceContext
 	private EntityManager manager;

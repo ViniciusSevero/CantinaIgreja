@@ -5,14 +5,17 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 
 @NamedQuery(name="ENDERECO.GETALL",query="select e from Endereco e")
+@SequenceGenerator( name = "ENDERECO_ID", sequenceName = "ENDERECO_SEQ", allocationSize = 1 )
 @Entity
 public class Endereco {
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ENDERECO_ID")
 	private int id;
 	
 	@Column(length=8)

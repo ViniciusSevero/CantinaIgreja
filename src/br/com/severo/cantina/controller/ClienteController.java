@@ -7,14 +7,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.severo.cantina.entity.Cliente;
+import br.com.severo.cantina.entity.Endereco;
+import br.com.severo.cantina.entity.Telefone;
+import br.com.severo.cantina.entity.TipoEndereco;
+import br.com.severo.cantina.entity.TipoTelefone;
 import br.com.severo.cantina.repository.ClienteDAO;
-import br.com.severo.cantina.vo.ClienteVO;
+import br.com.severo.cantina.repository.IClienteDao;
 
 @Controller
-@Transactional
 public class ClienteController {
 	@Autowired 
-	private ClienteDAO dao;
+	private IClienteDao dao;
 	
 	@RequestMapping("/cliente/cadastro")
 	public String getForm(){
@@ -31,5 +34,31 @@ public class ClienteController {
 	public String getClientes(Model model){
 		model.addAttribute("lista", dao.listAll());
 		return "listagem";
+	}
+	
+	@RequestMapping("/cliente/popula")
+	public String popula(){
+		Cliente c = new Cliente();
+		c.setNome("Inês");
+		
+		Endereco e = new Endereco();
+		e.setCep("08420680");
+		e.setBairro("Jardim São Pedro");
+		e.setCidade("São Paulo");
+		e.setEstado("SP");
+		e.setLogradouro("Rua Silvianópolis");
+		e.setNumero(275);
+		e.setTipoEndereco(TipoEndereco.RESIDENCIAL);
+		
+		Telefone t = new Telefone();
+		t.setDdd(11);
+		t.setNumero(25578896);
+		t.setTipo(TipoTelefone.FIXO);
+		
+		c.cadastrarEndereco(e);
+		c.cadastrarTelefone(t);
+		
+		dao.insert(c);
+		return "cadastro";
 	}
 }

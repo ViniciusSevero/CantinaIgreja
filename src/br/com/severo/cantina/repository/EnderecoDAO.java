@@ -9,39 +9,40 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.severo.cantina.entity.Cliente;
+import br.com.severo.cantina.entity.Endereco;
 
 @Repository
 @Transactional
-public class ClienteDAO implements IClienteDao {
-
+public class EnderecoDAO implements IEnderecoDAO {
+	
 	@PersistenceContext
 	private EntityManager manager;
 	
 	@Override
-	public void insert(Cliente t) {
+	public void insert(Endereco t) {
 		manager.persist(t);
 	}	
 
 	@Override
-	public void update(Cliente t) {
+	public void update(Endereco t) {
 		manager.merge(t);		
 	}
 
 	@Override
-	public void delete(Cliente t) {
+	public void delete(Endereco t) {
 		manager.remove(t);
 	}
 
 	@Override
-	public List<Cliente> listAll() {
-		TypedQuery<Cliente> q = manager.createNamedQuery("CLIENTE.GETALL",Cliente.class);
+	public List<Endereco> listAll() {
+		TypedQuery<Endereco> q = manager.createNamedQuery("Endereco.GETALL",Endereco.class);
 		return q.getResultList();
 	}
 
 	@Override
-	public Cliente find(Integer pk) {
-		return manager.find(Cliente.class, pk);
+	public Endereco find(Integer pk) {
+		return manager.find(Endereco.class, pk);
 	}
+
 
 }
