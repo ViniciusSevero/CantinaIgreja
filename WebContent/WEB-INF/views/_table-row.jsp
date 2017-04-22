@@ -9,7 +9,7 @@
      </td>
      <td>
      	<c:forEach items="${cliente.enderecos}" var="end"> 
-       		${end.logradouro} ${end.numero}. ${end.bairro}, ${end.cidade} - ${end.estado} - CEP ${end.cep} <b>${end.tipoEndereco}</b> <br/>
+       		${end.logradouro} ${end.numero}. ${end.bairro} <c:if test="${not empty end.complemento}"> - ${end.complemento}</c:if> - CEP ${end.cep} <b>${end.tipoEndereco}</b> <br/>
        	</c:forEach>
      </td>
      <td align="center">

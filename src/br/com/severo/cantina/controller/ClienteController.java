@@ -74,6 +74,7 @@ public class ClienteController {
 		model.addAttribute("lista", dao.listAll());
 		return "listagem";
 	}
+
 	
 	public void removerElementosVazios(Cliente cliente){
 		for (int i = 0; i < cliente.getEnderecos().size(); i++) {

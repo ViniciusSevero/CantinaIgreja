@@ -57,4 +57,8 @@
 	</bean> 
 	
 	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<mvc:interceptors>
+		<bean class="br.com.severo.cantina.interceptors.AutorizadorInterceptor"/>
+	</mvc:interceptors>
 </beans>

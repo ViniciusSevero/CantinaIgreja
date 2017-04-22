@@ -22,7 +22,7 @@
 				<div class="col-md-12">
 					<div class="form-group">
 						<label for="nome" class>Nome:</label>
-						<input type="text" class="form-control" name="nome" id="nome" value="${vo.clietne.nome}">
+						<input type="text" class="form-control" name="nome" id="nome">
 					</div>
 				</div>
 			</div>
