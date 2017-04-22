@@ -25,15 +25,15 @@
 		        <thead>
 		            <tr>
 		                <th>Name</th>
-		                <th>Position</th>
-		                <th>Office</th>
-		                <th>Age</th>
-		                <th>Start date</th>
-		                <th>Salary</th>
+		                <th>Telefones</th>
+		                <th>Endereços</th>
+		                <th>Opções</th>
 		            </tr>
 		        </thead>
 		        <tbody>
-		        	<%@ include file="_table-row.jsp" %>
+		        	<c:forEach items="${lista}" var="cliente"> 
+		        		<%@ include file="_table-row.jsp" %>
+		        	</c:forEach>
 		        </tbody>
 		    </table>
 		</div>

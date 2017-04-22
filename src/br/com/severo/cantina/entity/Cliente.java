@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,10 +25,10 @@ public class Cliente {
 	@Column(nullable=false)
 	private String nome;
 	
-	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<Endereco> enderecos = new ArrayList<>();
 	
-	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<Telefone> telefones = new ArrayList<>();;
 	
 	public void cadastrarEndereco(Endereco endereco){

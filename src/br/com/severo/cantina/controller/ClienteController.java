@@ -2,7 +2,6 @@ package br.com.severo.cantina.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -11,8 +10,8 @@ import br.com.severo.cantina.entity.Endereco;
 import br.com.severo.cantina.entity.Telefone;
 import br.com.severo.cantina.entity.TipoEndereco;
 import br.com.severo.cantina.entity.TipoTelefone;
-import br.com.severo.cantina.repository.ClienteDAO;
 import br.com.severo.cantina.repository.IClienteDao;
+import br.com.severo.cantina.vo.ClienteVO;
 
 @Controller
 public class ClienteController {
@@ -20,12 +19,20 @@ public class ClienteController {
 	private IClienteDao dao;
 	
 	@RequestMapping("/cliente/cadastro")
-	public String getForm(){
+	public String getForm(Model model){
+		ClienteVO vo = new ClienteVO();
+		model.addAttribute("vo",vo);
 		return "cadastro";
 	}
 	
 	@RequestMapping("/cliente/salvar")
 	public String cadastrar(Cliente cliente){
+		for (Endereco endereco : cliente.getEnderecos()) {
+			endereco.setCliente(cliente);
+		}
+		for (Telefone telefone : cliente.getTelefones()) {
+			telefone.setCliente(cliente);
+		}
 		dao.insert(cliente);
 		return "cadastro";
 	}
