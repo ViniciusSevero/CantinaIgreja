@@ -13,6 +13,6 @@
        	</c:forEach>
      </td>
      <td align="center">
-     	<a href="/Clietne/Editar${cliente.id}/" class="btn btn-primary">Vizualizar</a>
+     	<a href="<c:url value="/cliente/${cliente.id}"/>" class="btn btn-primary">Visualizar</a>
      </td>
  </tr>

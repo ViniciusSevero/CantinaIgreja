@@ -14,6 +14,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @NamedQuery(name="CLIENTE.GETALL",query="select c from Cliente c")
 @SequenceGenerator( name = "CLIENTE_ID", sequenceName = "CLIENTE_SEQ", allocationSize = 1 )
 @Entity
@@ -26,9 +29,11 @@ public class Cliente {
 	private String nome;
 	
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<Endereco> enderecos = new ArrayList<>();
 	
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<Telefone> telefones = new ArrayList<>();;
 	
 	public void cadastrarEndereco(Endereco endereco){

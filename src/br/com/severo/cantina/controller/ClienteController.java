@@ -1,15 +1,20 @@
 package br.com.severo.cantina.controller;
 
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.severo.cantina.entity.Cliente;
 import br.com.severo.cantina.entity.Endereco;
 import br.com.severo.cantina.entity.Telefone;
-import br.com.severo.cantina.entity.TipoEndereco;
-import br.com.severo.cantina.entity.TipoTelefone;
 import br.com.severo.cantina.repository.IClienteDao;
 import br.com.severo.cantina.vo.ClienteVO;
 
@@ -27,6 +32,8 @@ public class ClienteController {
 	
 	@RequestMapping("/cliente/salvar")
 	public String cadastrar(Cliente cliente){
+		removerElementosVazios(cliente);
+		
 		for (Endereco endereco : cliente.getEnderecos()) {
 			endereco.setCliente(cliente);
 		}
@@ -37,35 +44,48 @@ public class ClienteController {
 		return "cadastro";
 	}
 	
+	@RequestMapping("/cliente/alterar")
+	public String salvar(Cliente cliente) throws IOException{
+		removerElementosVazios(cliente);
+		
+		for (Endereco endereco : cliente.getEnderecos()) {
+			endereco.setCliente(cliente);
+		}
+		for (Telefone telefone : cliente.getTelefones()) {
+			telefone.setCliente(cliente);
+		}
+		dao.update(cliente);
+		return "redirect:"+"/cliente/"+cliente.getId();
+	}
+	
+	@RequestMapping(value = "/cliente/{id}", method=RequestMethod.GET)
+	public String getOrder(@PathVariable int id, Model model){	
+		ClienteVO vo = new ClienteVO();
+		vo.setCliente(dao.find(id));
+		System.out.println(vo.getCliente().getTelefones().size());
+		System.out.println(vo.getCliente().getTelefones().size());
+		System.out.println(vo.getCliente().getTelefones().size());
+		model.addAttribute("vo",vo);
+		return "detalhe";
+	}
+	
 	@RequestMapping("/cliente/listagem")
 	public String getClientes(Model model){
 		model.addAttribute("lista", dao.listAll());
 		return "listagem";
 	}
 	
-	@RequestMapping("/cliente/popula")
-	public String popula(){
-		Cliente c = new Cliente();
-		c.setNome("Inês");
-		
-		Endereco e = new Endereco();
-		e.setCep("08420680");
-		e.setBairro("Jardim São Pedro");
-		e.setCidade("São Paulo");
-		e.setEstado("SP");
-		e.setLogradouro("Rua Silvianópolis");
-		e.setNumero(275);
-		e.setTipoEndereco(TipoEndereco.RESIDENCIAL);
-		
-		Telefone t = new Telefone();
-		t.setDdd(11);
-		t.setNumero(25578896);
-		t.setTipo(TipoTelefone.FIXO);
-		
-		c.cadastrarEndereco(e);
-		c.cadastrarTelefone(t);
-		
-		dao.insert(c);
-		return "cadastro";
+	public void removerElementosVazios(Cliente cliente){
+		for (int i = 0; i < cliente.getEnderecos().size(); i++) {
+			if(cliente.getEnderecos().get(i).getCep() == null || cliente.getEnderecos().get(i).getCep() == ""){
+				cliente.getEnderecos().remove(i);
+			}
+		}
+		for (int i = 0; i < cliente.getTelefones().size(); i++) {
+			if(cliente.getTelefones().get(i).getNumero() == 0){
+				cliente.getTelefones().remove(i);
+			}
+		}
 	}
+	
 }
