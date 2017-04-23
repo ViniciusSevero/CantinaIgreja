@@ -29,10 +29,10 @@
 	</bean>
 	
 	<bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource">
-	    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-	    <property name="url" value="jdbc:mysql://localhost/cantinadb"/>
-	    <property name="username" value="root"/>
-	    <property name="password" value=""/>
+	    <property name="driverClassName" value="org.postgresql.Driver"/>
+	    <property name="url" value="postgres://uydnivknlcznst:b94f6ff87ac05806be0ad228806fa85ae1e0e189211e380179b7cf678f7bf12b@ec2-54-225-118-55.compute-1.amazonaws.com:5432/d678lpm4n4uc1i"/>
+	    <property name="username" value="uydnivknlcznst"/>
+	    <property name="password" value="b94f6ff87ac05806be0ad228806fa85ae1e0e189211e380179b7cf678f7bf12b"/>
 	</bean>
 	
 	<!-- gerenciamento de jpa pelo spring -->
