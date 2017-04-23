@@ -18,6 +18,11 @@ public class AuthenticationController {
 	@Autowired
 	private IUsuario dao;
 	
+	@RequestMapping(value="/", method=RequestMethod.GET)
+	public String getIndex(){
+		return "login";
+	}
+	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String getFormLogin(){
 		return "login";
